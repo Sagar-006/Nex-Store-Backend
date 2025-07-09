@@ -6,7 +6,7 @@ import { JwtPayload } from "../types/types";
 
 dotenv.config();
 
-export const authenticateToken= (
+export const authToken= (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -23,6 +23,7 @@ export const authenticateToken= (
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+    console.log(decoded)
     // @ts-ignore
     req.user = decoded;
     next();

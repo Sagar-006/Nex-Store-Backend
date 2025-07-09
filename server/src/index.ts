@@ -3,7 +3,7 @@ import connectDB from "./db/db";
 import dotenv from "dotenv";
 import userRoute from "./routes/userRoute";
 import productRoute from './routes/productRoute'
-import { authenticateToken } from "./middlewares/authenticateToken";
+import { authToken } from "./middlewares/authToken";
 dotenv.config(); 
 
 const app = express();

@@ -1,6 +1,8 @@
 export interface Users {
-  name: string;
+  username: string;
+  email:string;
   password: string;
+  role:"user" | "admin";
 }
 
 export interface JwtPayload {
@@ -11,3 +13,12 @@ export interface JwtPayload {
   exp?: number;
 }
 
+export interface IProduct extends Document {
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  category: "MEN"|"WOMEN";
+  size:'S'|'M'|'L'|'XL';
+  createdAt?:Date;
+}
