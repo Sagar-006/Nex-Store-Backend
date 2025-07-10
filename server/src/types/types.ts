@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export interface Users {
   username: string;
   email:string;
@@ -21,4 +23,18 @@ export interface IProduct extends Document {
   category: "MEN"|"WOMEN";
   size:'S'|'M'|'L'|'XL';
   createdAt?:Date;
+}
+
+
+export interface ICartItem {
+  productId:mongoose.Schema.Types.ObjectId;
+  quantity:number;
+  size?:"S"|"M"|"X"|"XL";
+}
+
+export interface ICart extends Document {
+  userId: mongoose.Schema.Types.ObjectId;
+  items: ICartItem[];
+  createdAt: Date;
+  updatedAt: Date;
 }

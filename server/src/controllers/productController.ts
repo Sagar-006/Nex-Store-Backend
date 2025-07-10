@@ -5,6 +5,7 @@ import { error } from "ajv/dist/vocabularies/applicator/dependencies";
 export const productController = async(req:Request,res:Response,next:NextFunction): Promise<void> => {
     // @ts-ignore
     const user = req.user;
+    console.log(user);
     if(!user){
         res.status(401).json({
             message:"Unauthorized!"
@@ -28,6 +29,7 @@ export const productController = async(req:Request,res:Response,next:NextFunctio
         res.status(201).json({
             userId:user._id,
             role:user.role,
+            message:"New Product Added!"
             
         })
 
@@ -141,7 +143,6 @@ export const deleteProduct = async(req:Request,res:Response) =>{
 }
 
 export const filterProduct = async (req: Request, res: Response): Promise<void> => {
-  
 
   try {
     const category = req.params.name;
