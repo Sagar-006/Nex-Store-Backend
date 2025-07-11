@@ -38,3 +38,22 @@ export interface ICart extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IOrderItem {
+  productId:string;
+  quantity:number;
+  size:'S'|'M'|'X'|'XL'
+}
+
+export interface Iorder {
+  userId:String;
+  items:IOrderItem[];
+  shippingAddress:{
+    street:string;
+    city:string;
+    zip:string;
+  },
+  totalAmount:number;
+  status:'Processing'|'Shipped'|'Delivered'|'Cancelled';
+  createdAt?:Date;
+}

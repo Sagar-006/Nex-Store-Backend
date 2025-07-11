@@ -17,7 +17,7 @@ export const addToCart = async(req:Request,res:Response,next:NextFunction):Promi
             })
             return;
         }
-        
+       
         // Validate product exists
         const product = await productschema.findById(productId?.toString().trim());
         console.log("Product found:", product);
@@ -140,3 +140,49 @@ export const updateCartItems = async(req:Request,res:Response,next:NextFunction)
         })
     }
 } 
+
+export const deleteItem = async(req:Request,res:Response,next:NextFunction) => {
+    try {
+      // @ts-ignore
+      const userId = req.user.userId;
+      const { productId } = req.params;
+
+      const cart = await Cart.findOne({ userId });
+      console.log(cart);
+
+      if (!cart) {
+        res.status(400).json({
+          message: "user not exits!",
+        });
+        return;
+      } 
+        const itemIndex = await cart.items.findIndex(
+          (item) => item.productId.toString() === productId
+        );
+        console.log("this is index.No",itemIndex);
+
+        if(itemIndex === -1){
+            res.status(400).json({
+                message:"Item not found in cart!"
+            })
+        }
+
+        console.log(cart.items);
+        // Remove item from array
+        cart.items.splice(itemIndex,1);
+        await cart.save();
+
+        res.status(200).json({
+            message:"Product deleted from cart Successfully!"
+        });
+
+        
+      
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({
+        message: "Something went wrong!",
+        error: e,
+      });
+    }
+}
